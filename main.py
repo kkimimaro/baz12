@@ -28,14 +28,14 @@ def make(message):
     keyboard.add("голосовое сообщение")
     bot.send_message(message.chat.id, 'выбирете, как отправить аудио', reply_markup= keyboard)
     bot.register_next_step_handler(message, audiochoice)
-  if message.text=="qr код":
+  elif message.text=="qr код":
     bot.send_message(message.chat.id, 'введите текст для qr кода')
     bot.register_next_step_handler(message, qrtext)
   
 def audiochoice(message):
   if message.text=="mp3":
     bot.register_next_step_handler(message, makeaudio_mp3)
-  if message.text=="голосовое сообщение":
+  elif message.text=="голосовое сообщение":
     bot.register_next_step_handler(message, makeaudio_voise)
 
 
