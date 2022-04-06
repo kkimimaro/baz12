@@ -34,10 +34,11 @@ def make(message):
   
 def audiochoice(message):
   if message.text=="mp3":
-    bot.register_next_step_handler(message, makeaudio_mp3)
+    bot.send_message(message.chat.id, 'введите текст для создания аудио файла')
+    bot.register_next_step_handler(message, audiotextmp3)
   elif message.text=="голосовое сообщение":
-    bot.register_next_step_handler(message, makeaudio_voise)
-
+    bot.send_message(message.chat.id, 'введите текст для создания аудио файла')
+    bot.register_next_step_handler(message, audiotextvoice)
 
 def qrtext(message):
   qrcodetext = message.text  #message.text забирает текст, который ввел пользователь  нужна отдельная ветка
@@ -46,11 +47,7 @@ def qrtext(message):
   img = open('qr.png','rb')
   bot.send_photo(message.from_user.id, img)
   img.close()
-
-def makeaudio_mp3(message):
-  bot.send_message(message.chat.id, 'введите текст для создания аудио файла')
-  bot.register_next_step_handler(message, audiotextmp3)
-
+  
 def audiotextmp3(message):
   audiotext = message.text  #message.text забирает текст, который ввел пользователь  нужна отдельная ветка
   audio = gTTS(audiotext, lang= 'ru')
@@ -58,10 +55,7 @@ def audiotextmp3(message):
   aud = open('audio.mp3','rb')
   bot.send_audio(message.from_user.id, aud)
   aud.close()
-
-def makeaudio_voise(message):
-  bot.send_message(message.chat.id, 'введите текст для создания аудио файла')
-  bot.register_next_step_handler(message, audiotextvoice)
+  
 
 def audiotextvoice(message):
   audiotext = message.text  #message.text забирает текст, который ввел пользователь  нужна отдельная ветка
